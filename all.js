@@ -149,7 +149,7 @@ productWrap.addEventListener('click', function (e) {
 shoppingCartTable.addEventListener('click', function (e) {
   const target = e.target
   const id = target.getAttribute('data-id')
-  if (target.classList.value === 'material - icons') {
+  if (target.classList.value === 'material-icons') {
     // axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts/${id}`)
     console.log(135135646351351)
   }
