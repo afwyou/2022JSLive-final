@@ -143,19 +143,23 @@ productWrap.addEventListener('click', function (e) {
 shoppingCartTable.addEventListener('click', function (e) {
   const target = e.target
   const id = target.getAttribute('data-id')
+  // target.preventDefault()
   if (target.classList.value === 'material-icons') {
     axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts/${id}`)
       .then(getCartList())
     // console.log(135135646351351)
+  } else if (target.classList.value === 'discardAllBtn') {
+    axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts`)
+      .then(getCartList())
   }
 }
 )
 //刪除全部購物車
-discardAllBtn.addEventListener('click', function (e) {
-  console.log(111)
-  axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts
-`)
-})
+// discardAllBtn.addEventListener('click', function (e) {
+//   console.log(111)
+//   axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts
+// `)
+// })
 
 //送出預定
 
