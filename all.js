@@ -14,12 +14,17 @@ let productList = []
 const productWrap = document.querySelector('.productWrap')
 const productSelect = document.querySelector('.productSelect')
 const shoppingCartTable = document.querySelector('.shoppingCart-table')
+
+
+
 // 初始化
 function init() {
   getProductList()
   getCartList()
 }
 init()
+const discardAllBtn = document.querySelector('.discardAllBtn')
+console.log(discardAllBtn)
 
 //取得產品資料
 function getProductList() {
@@ -60,17 +65,6 @@ productSelect.addEventListener('change', function (e) {
     } else {
       return item.category === target.value
     }
-    // if (target.value === '床架') {
-    //   return item.category === '床架'
-    // } else if (target.value === '窗簾') {
-    //   return item.category === '窗簾'
-    // } else if (item.category === '收納') {
-    //   // console.log(true)
-    //   // 不知道為什麼無法篩選出收納
-    //   return item.category === '收納'
-    // } else {
-    //   return item
-    // }
   })
   renderData(filteredProductList)
 
@@ -156,7 +150,14 @@ shoppingCartTable.addEventListener('click', function (e) {
   }
 }
 )
+//刪除全部購物車
+discardAllBtn.addEventListener('click', function (e) {
+  console.log(111)
+  axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts
+`)
+})
 
 //送出預定
+
 
 
