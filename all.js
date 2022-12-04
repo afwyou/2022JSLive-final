@@ -15,6 +15,7 @@ let cartList = []
 const productWrap = document.querySelector('.productWrap')
 const productSelect = document.querySelector('.productSelect')
 const shoppingCartTable = document.querySelector('.shoppingCart-table')
+const discardAllBtn = document.querySelector('.discardAllBtn')
 
 
 
@@ -24,8 +25,9 @@ function init() {
   getCartList()
 }
 init()
-const discardAllBtn = document.querySelector('.discardAllBtn')
-console.log(discardAllBtn)
+
+
+
 
 //取得產品資料
 function getProductList() {
@@ -55,7 +57,6 @@ function renderData(arr) {
   })
   productWrap.innerHTML = str
 }
-
 // 產品篩選
 productSelect.addEventListener('change', function (e) {
   let target = e.target
@@ -71,6 +72,10 @@ productSelect.addEventListener('change', function (e) {
 
 })
 
+
+
+
+
 //取得購物車
 function getCartList() {
   axios.get(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts`)
@@ -84,6 +89,7 @@ function getCartList() {
 
 //渲染購物車
 function renderCart(arr) {
+  let total = 0
   let str = `<tr>
           <th width="40%">品項</th>
           <th width="15%">單價</th>
@@ -92,6 +98,7 @@ function renderCart(arr) {
           <th width="15%"></th>
         </tr>`
   arr.forEach(function (item) {
+    let singleSum = item.product.price * item.quantity
     str += `
         <tr>
           <td>
@@ -102,7 +109,7 @@ function renderCart(arr) {
           </td>
           <td>NT$${item.product.price}</td>
           <td>${item.quantity}</td>
-          <td>NT$${item.product.price * item.quantity}</td>
+          <td>NT$${singleSum}</td>
           <td class="discardBtn">
             <a href="#" class="material-icons" data-id="${item.id}">
               clear
@@ -110,6 +117,7 @@ function renderCart(arr) {
           </td>
         </tr>
   `
+    total += singleSum
   })
   str += `
             <tr>
@@ -121,10 +129,15 @@ function renderCart(arr) {
               <td>
                 <p>總金額</p>
               </td>
-              <td>NT$13,980</td>
+              <td>NT$${total}</td>
             </tr>`
   shoppingCartTable.innerHTML = str
 }
+
+
+
+
+
 //加入購物車
 productWrap.addEventListener('click', function (e) {
   e.preventDefault()
@@ -176,14 +189,7 @@ shoppingCartTable.addEventListener('click', function (e) {
   }
 }
 )
-//刪除全部購物車
-// discardAllBtn.addEventListener('click', function (e) {
-//   console.log(111)
-//   axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts
-// `)
-// })
 
-//送出預定
 
 
 
