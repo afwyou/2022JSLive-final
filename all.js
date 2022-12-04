@@ -204,7 +204,6 @@ orderInfo.addEventListener('click', function (e) {
     alert('您的購物車空無一物')
     return
   }
-  console.log(customerName, customerPhone, customerAddress, customerEmail, tradeWay)
   if (customerName.vaule == '' || customerPhone.vaule == '' || customerAddress.vaule == '' || customerEmail.vaule == '' || tradeWay.vaule == '') {
     alert('請填寫完整訂單資料')
     return
