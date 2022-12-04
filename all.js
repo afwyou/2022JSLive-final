@@ -16,7 +16,13 @@ const productWrap = document.querySelector('.productWrap')
 const productSelect = document.querySelector('.productSelect')
 const shoppingCartTable = document.querySelector('.shoppingCart-table')
 const discardAllBtn = document.querySelector('.discardAllBtn')
-
+const orderInfo = document.querySelector('.orderInfo-btn')
+const customerName = document.querySelector('#customerName').value;
+const customerPhone = document.querySelector('#customerPhone').value;
+const customerEmail = document.querySelector('#customerEmail').value;
+const customerAddress = document.querySelector('#customerAddress').value;
+const tradeWay = document.querySelector('#tradeWay').value;
+console.log(customerName, customerPhone, customerAddress, customerEmail, tradeWay)
 
 
 // 初始化
@@ -189,6 +195,37 @@ shoppingCartTable.addEventListener('click', function (e) {
   }
 }
 )
+
+
+//送出訂單
+orderInfo.addEventListener('click', function (e) {
+  e.preventDefault()
+  if (cartList.length === 0) {
+    alert('您的購物車空無一物')
+    return
+  }
+  console.log(customerName, customerPhone, customerAddress, customerEmail, tradeWay)
+  if (customerName == '' || customerPhone == '' || customerAddress == '' || customerEmail == '' || tradeWay == '') {
+    alert('請填寫完整訂單資料')
+    return
+  } else {
+    axios.post(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/orders
+`, {
+      "data": {
+        "user": {
+          "name": customerName,
+          "tel": customerPhone,
+          "email": customerEmail,
+          "address": customerAddress,
+          "payment": tradeWay
+        }
+      }
+    }).then(function (res) {
+      alert('已送出訂單')
+    })
+  }
+
+})
 
 
 
