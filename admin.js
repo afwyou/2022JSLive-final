@@ -17,3 +17,24 @@ let chart = c3.generate({
     }
   },
 });
+
+const api_path = 'erwin'
+const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
+let orderList = []
+const orderPageTable = document.querySelector('.orderPage-table')
+
+
+//取得訂單、渲染
+axios.get(`https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders
+`).then(function (res) {
+  console.log(res)
+})
+
+//修改訂單
+
+
+
+//刪除訂單
+
+
+//刪除全部訂單
