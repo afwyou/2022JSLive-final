@@ -11,6 +11,7 @@ let chart = c3.generate({
 const api_path = 'erwin';
 const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
 let productList = []
+let cartList = []
 const productWrap = document.querySelector('.productWrap')
 const productSelect = document.querySelector('.productSelect')
 const shoppingCartTable = document.querySelector('.shoppingCart-table')
@@ -31,7 +32,7 @@ function getProductList() {
   axios.get(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/products`)
     .then(function (res) {
       productList = res.data.products
-      console.log(productList)
+      // console.log(productList)
       renderData(productList)
     })
 }
@@ -74,8 +75,9 @@ productSelect.addEventListener('change', function (e) {
 function getCartList() {
   axios.get(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts`)
     .then(function (res) {
-      console.log(res.data.carts)
-      renderCart(res.data.carts)
+      // console.log(res.data.carts)
+      cartList = res.data.carts
+      renderCart(cartList)
     })
 }
 
@@ -124,23 +126,33 @@ function renderCart(arr) {
 }
 //加入購物車
 productWrap.addEventListener('click', function (e) {
+  e.preventDefault()
   const target = e.target
   const id = target.getAttribute('data-id')
+  let num = 1
+  cartList.forEach(function (item) {
+    if (id === item.id) {
+      item.quantity += 1
+    }
+  })
   if (target.classList.value === 'addCardBtn') {
-    // console.log('geteeeeeee')
     axios.post(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts`,
       {
         "data": {
           "productId": id,
-          "quantity": 5
+          "quantity": num
         }
+      }).then(function (res) {
+        alert('加入購物車成功')
+        getCartList()
       })
-    getCartList()
+
   }
 })
 
 //刪除購物車
 shoppingCartTable.addEventListener('click', function (e) {
+  e.preventDefault()
   const target = e.target
   const id = target.getAttribute('data-id')
   // target.preventDefault()
