@@ -32,11 +32,11 @@ function getProductList() {
   axios.get(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/products`)
     .then(function (res) {
       productList = res.data.products
-      // console.log(productList)
+      console.log('產品清單productList：', productList)
       renderData(productList)
     })
 }
-//渲染
+//產品渲染
 function renderData(arr) {
   let str = ''
   arr.forEach(function (item) {
@@ -77,6 +77,7 @@ function getCartList() {
     .then(function (res) {
       // console.log(res.data.carts)
       cartList = res.data.carts
+      console.log('購物車資料cartList', cartList)
       renderCart(cartList)
     })
 }
@@ -130,11 +131,15 @@ productWrap.addEventListener('click', function (e) {
   const target = e.target
   const id = target.getAttribute('data-id')
   let num = 1
+  //加入購物車，判斷數量邏輯
   cartList.forEach(function (item) {
-    if (id === item.id) {
-      item.quantity += 1
+    // console.log(id, item)
+    if (id === item.product.id) {
+      console.log(true)
+      num += 1
     }
   })
+  //加入購物車按鈕監聽
   if (target.classList.value === 'addCardBtn') {
     axios.post(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts`,
       {
@@ -155,14 +160,19 @@ shoppingCartTable.addEventListener('click', function (e) {
   e.preventDefault()
   const target = e.target
   const id = target.getAttribute('data-id')
-  // target.preventDefault()
   if (target.classList.value === 'material-icons') {
     axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts/${id}`)
-      .then(getCartList())
+      .then(function (res) {
+        alert('購物車內容刪除成功')
+        getCartList()
+      })
     // console.log(135135646351351)
   } else if (target.classList.value === 'discardAllBtn') {
     axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts`)
-      .then(getCartList())
+      .then(function (res) {
+        alert('購物車全部刪除成功')
+        getCartList()
+      })
   }
 }
 )
