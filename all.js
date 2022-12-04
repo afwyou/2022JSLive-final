@@ -17,12 +17,12 @@ const productSelect = document.querySelector('.productSelect')
 const shoppingCartTable = document.querySelector('.shoppingCart-table')
 const discardAllBtn = document.querySelector('.discardAllBtn')
 const orderInfo = document.querySelector('.orderInfo-btn')
-const customerName = document.querySelector('#customerName').value;
-const customerPhone = document.querySelector('#customerPhone').value;
-const customerEmail = document.querySelector('#customerEmail').value;
-const customerAddress = document.querySelector('#customerAddress').value;
-const tradeWay = document.querySelector('#tradeWay').value;
-console.log(customerName, customerPhone, customerAddress, customerEmail, tradeWay)
+const customerName = document.querySelector('#customerName')
+const customerPhone = document.querySelector('#customerPhone')
+const customerEmail = document.querySelector('#customerEmail')
+const customerAddress = document.querySelector('#customerAddress')
+const tradeWay = document.querySelector('#tradeWay')
+
 
 
 // 初始化
@@ -205,7 +205,7 @@ orderInfo.addEventListener('click', function (e) {
     return
   }
   console.log(customerName, customerPhone, customerAddress, customerEmail, tradeWay)
-  if (customerName == '' || customerPhone == '' || customerAddress == '' || customerEmail == '' || tradeWay == '') {
+  if (customerName.vaule == '' || customerPhone.vaule == '' || customerAddress.vaule == '' || customerEmail.vaule == '' || tradeWay.vaule == '') {
     alert('請填寫完整訂單資料')
     return
   } else {
@@ -213,11 +213,11 @@ orderInfo.addEventListener('click', function (e) {
 `, {
       "data": {
         "user": {
-          "name": customerName,
-          "tel": customerPhone,
-          "email": customerEmail,
-          "address": customerAddress,
-          "payment": tradeWay
+          "name": customerName.value,
+          "tel": customerPhone.value,
+          "email": customerEmail.value,
+          "address": customerAddress.value,
+          "payment": tradeWay.value
         }
       }
     }).then(function (res) {
