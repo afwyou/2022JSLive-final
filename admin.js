@@ -21,7 +21,7 @@ let chart = c3.generate({
 const api_path = 'erwin'
 const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
 let orderList = []
-const orderPageTable = document.querySelector('.orderPage-table')
+const js_table = document.querySelector('.js-table')
 
 
 //取得訂單、渲染
@@ -33,23 +33,16 @@ function getOrderList() {
   }).then(function (res) {
     console.log(res.data.orders)
     orderList = res.data.orders
-    //組合字串
-    let str = ''
-    str += ` <thead>
-          <tr>
-            <th>訂單編號</th>
-            <th>聯絡人</th>
-            <th>聯絡地址</th>
-            <th>電子郵件</th>
-            <th>訂單品項</th>
-            <th>訂單日期</th>
-            <th>訂單狀態</th>
-            <th>操作</th>
-          </tr>
-        </thead>`
 
-    //動態部分
+    //組字串
+    let productStr = ''
+    let str = ''
     orderList.forEach(item => {
+      //組字串（訂單表格內的品項部分）
+      item.products.forEach(productItem => {
+        productStr += `${productItem.title} x ${productItem.quantity}<br>`
+      });
+      //組合字串（表格部分）
       str += `<tr>
           <td>${item.createdAt}</td>
           <td>
@@ -59,7 +52,7 @@ function getOrderList() {
           <td>${item.user.address}</td>
           <td>${item.user.email}</td>
           <td>
-            <p>${item.products.title}</p>
+            <p>${productStr}</p>
           </td>
           <td>2021/03/08</td>
           <td class="orderStatus">
@@ -71,7 +64,7 @@ function getOrderList() {
         </tr>`
     });
 
-    orderPageTable.innerHTML = str
+    js_table.innerHTML = str
 
   })
 }
