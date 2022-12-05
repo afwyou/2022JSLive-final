@@ -25,8 +25,11 @@ const orderPageTable = document.querySelector('.orderPage-table')
 
 
 //取得訂單、渲染
-axios.get(`https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders
-`).then(function (res) {
+axios.get(`https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders`, {
+  headers: {
+    'Authorization': token,
+  }
+}).then(function (res) {
   console.log(res)
 })
 
