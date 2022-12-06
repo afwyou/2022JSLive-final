@@ -22,7 +22,7 @@ const api_path = 'erwin'
 const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
 let orderList = []
 const js_table = document.querySelector('.js-table')
-
+const orderPageList = document.querySelector('.orderPage-list')
 
 //取得訂單、渲染
 function getOrderList() {
@@ -69,11 +69,11 @@ function getOrderList() {
             <p>${productStr}</p>
           </td>
           <td>2021/03/08</td>
-          <td class="orderStatus">
+          <td class="orderStatus" data-status = "${item.paid}">
             <a href="#">${orderStatus}</a>
           </td>
           <td>
-            <input type="button" class="delSingleOrder-Btn" value="刪除">
+            <input type="button" class="delSingleOrder-Btn" data-id = "${item.id}" value="刪除">
           </td>
         </tr>`
     });
@@ -86,7 +86,6 @@ getOrderList()
 
 
 //修改訂單
-
 
 
 //刪除訂單
