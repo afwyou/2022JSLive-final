@@ -108,6 +108,19 @@ function changeOrderStatus(id, status) {
   })
 
 }
+//刪除訂單
+function deleteOrder(id) {
+  axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders/${id}`, {
+    headers: {
+      'Authorization': token,
+    }
+  }).then(function (res) {
+    alert('訂單刪除成功')
+    getOrderList()
+  })
+}
+
+//訂單監聽（修改、刪除）
 orderPageList.addEventListener('click', function (e) {
   e.preventDefault()
   const targetClass = e.target.getAttribute('class')
@@ -116,15 +129,11 @@ orderPageList.addEventListener('click', function (e) {
   // console.log(targetClass, id, status)
   if (targetClass === 'js-orderStatus') {
     changeOrderStatus(id, status)
-    // alert('訂單修改成功')
 
   } else if (targetClass === 'delSingleOrder-Btn') {
-    alert('你點擊到刪除訂單')
+    deleteOrder(id)
   }
 })
 
 
-//刪除訂單
 
-
-//刪除全部訂單
