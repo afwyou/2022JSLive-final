@@ -81,6 +81,8 @@ function getOrderList() {
 
     js_table.innerHTML = str
 
+  }).catch(function (error) {
+    console.log(error)
   })
 }
 getOrderList()
@@ -106,6 +108,8 @@ function changeOrderStatus(id, status) {
   }).then(function (res) {
     alert('訂單修改成功')
     getOrderList()
+  }).catch(function (error) {
+    console.log(error)
   })
 
 }
@@ -118,6 +122,8 @@ function deleteOrder(id) {
   }).then(function (res) {
     alert('訂單刪除成功')
     getOrderList()
+  }).catch(function (error) {
+    console.log(error)
   })
 }
 
@@ -150,6 +156,8 @@ discardAllBtn.addEventListener('click', function (e) {
   }).then(function (res) {
     alert('訂單全部刪除成功')
     getOrderList()
+  }).catch(function (error) {
+    console.log(error)
   })
 })
 
