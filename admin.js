@@ -51,9 +51,9 @@ function getOrderList() {
         orderStatus = '未處理'
       }
       //組時間字串
-
-
-
+      const timeStamp = new Date(item.createdAt * 1000)
+      const orderTime = `${timeStamp.getFullYear()}/${timeStamp.getMonth() + 1}/${timeStamp.getDate()}`
+      console.log(orderTime)
 
 
       //組合字串（表格部分）
@@ -68,7 +68,7 @@ function getOrderList() {
           <td>
             <p>${productStr}</p>
           </td>
-          <td>2021/03/08</td>
+          <td>${orderTime}</td>
           <td class="orderStatus" >
             <a href="#" class="js-orderStatus" data-status = "${item.paid}" data-id="${item.id}">${orderStatus}</a>
           </td>
