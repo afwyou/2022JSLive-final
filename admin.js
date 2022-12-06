@@ -37,11 +37,25 @@ function getOrderList() {
     //組字串
     let productStr = ''
     let str = ''
+    let orderStatus = ''
     orderList.forEach(item => {
+
       //組字串（訂單表格內的品項部分）
       item.products.forEach(productItem => {
         productStr += `${productItem.title} x ${productItem.quantity}<br>`
       });
+      //判斷訂單狀態
+      if (item.paid === true) {
+        orderStatus = '已處理'
+      } else {
+        orderStatus = '未處理'
+      }
+      //組時間字串
+
+
+
+
+
       //組合字串（表格部分）
       str += `<tr>
           <td>${item.createdAt}</td>
@@ -56,7 +70,7 @@ function getOrderList() {
           </td>
           <td>2021/03/08</td>
           <td class="orderStatus">
-            <a href="#">未處理</a>
+            <a href="#">${orderStatus}</a>
           </td>
           <td>
             <input type="button" class="delSingleOrder-Btn" value="刪除">
