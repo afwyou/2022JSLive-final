@@ -23,6 +23,7 @@ const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
 let orderList = []
 const js_table = document.querySelector('.js-table')
 const orderPageList = document.querySelector('.orderPage-list')
+const discardAllBtn = document.querySelector('.discardAllBtn')
 
 //取得訂單、渲染
 function getOrderList() {
@@ -133,6 +134,23 @@ orderPageList.addEventListener('click', function (e) {
   } else if (targetClass === 'delSingleOrder-Btn') {
     deleteOrder(id)
   }
+})
+
+//刪除全部訂單
+discardAllBtn.addEventListener('click', function (e) {
+  e.preventDefault()
+  if (orderList.length === 0) {
+    alert('沒有任何訂單可以刪除')
+    return
+  }
+  axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders/`, {
+    headers: {
+      'Authorization': token,
+    }
+  }).then(function (res) {
+    alert('訂單全部刪除成功')
+    getOrderList()
+  })
 })
 
 
