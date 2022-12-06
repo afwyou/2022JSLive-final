@@ -87,17 +87,12 @@ getOrderList()
 
 //修改訂單狀態
 function changeOrderStatus(id, status) {
-  console.log('status:', status)
   let newStatus
-  if (status == false) {
-    newStatus = true
-    console.log('newStatus:', newStatus)
-  } else {
+  if (status == 'true') {
     newStatus = false
-    console.log('status:', status)
-    console.log('newStatus:', newStatus)
+  } else {
+    newStatus = true
   }
-  console.log('newStatus:', newStatus)
   axios.put(`https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders`, {
     "data": {
       "id": id,
@@ -107,8 +102,10 @@ function changeOrderStatus(id, status) {
     headers: {
       'Authorization': token,
     }
+  }).then(function (res) {
+    alert('訂單修改成功')
+    getOrderList()
   })
-  getOrderList()
 
 }
 orderPageList.addEventListener('click', function (e) {
@@ -119,7 +116,7 @@ orderPageList.addEventListener('click', function (e) {
   // console.log(targetClass, id, status)
   if (targetClass === 'js-orderStatus') {
     changeOrderStatus(id, status)
-    alert('訂單修改成功')
+    // alert('訂單修改成功')
 
   } else if (targetClass === 'delSingleOrder-Btn') {
     alert('你點擊到刪除訂單')
