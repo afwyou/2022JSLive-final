@@ -69,8 +69,8 @@ function getOrderList() {
             <p>${productStr}</p>
           </td>
           <td>2021/03/08</td>
-          <td class="orderStatus" data-status = "${item.paid}">
-            <a href="#">${orderStatus}</a>
+          <td class="orderStatus" >
+            <a href="#" class="js-orderStatus" data-status = "${item.paid}" data-id="${item.id}">${orderStatus}</a>
           </td>
           <td>
             <input type="button" class="delSingleOrder-Btn" data-id = "${item.id}" value="刪除">
@@ -85,7 +85,43 @@ function getOrderList() {
 getOrderList()
 
 
-//修改訂單
+//修改訂單狀態
+function changeOrderStatus(id, status) {
+  console.log(status, id)
+  let newStatus
+  if (status === false) {
+    newStatus = true
+  } else {
+    newStatus = false
+  }
+
+  axios.put(`https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders`, {
+    "data": {
+      "id": "id",
+      "paid": newStatus
+    }
+  }, {
+    headers: {
+      'Authorization': token,
+    }
+  })
+  getOrderList()
+
+}
+orderPageList.addEventListener('click', function (e) {
+  e.preventDefault()
+  const targetClass = e.target.getAttribute('class')
+  const id = e.target.getAttribute('data-id')
+  const status = e.target.getAttribute('data-status')
+  console.log(targetClass, id, status)
+  if (targetClass === 'js-orderStatus') {
+    changeOrderStatus(id, status)
+    alert('訂單修改成功')
+
+  } else if (targetClass === 'delSingleOrder-Btn') {
+    alert('你點擊到刪除訂單')
+  }
+})
 
 
 //刪除訂單
