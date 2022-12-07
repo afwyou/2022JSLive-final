@@ -9,7 +9,9 @@ let chartArray = []
 const js_table = document.querySelector('.js-table')
 const orderPageList = document.querySelector('.orderPage-list')
 const discardAllBtn = document.querySelector('.discardAllBtn')
-
+let bedstockNum = 0
+let storageNum = 0
+let curtainNum = 0
 //取得訂單、渲染
 function getOrderList() {
   axios.get(`https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders`, {
@@ -63,13 +65,7 @@ function getOrderList() {
         </tr>`
 
       //組合圖表陣列
-      // 床架、收納、窗簾
-      let bedstockNum = 0
-      let storageNum = 0
-      let curtainNum = 0
-
       item.products.forEach(function (orderItem) {
-        let array = []
         if (orderItem.category === '床架') {
           bedstockNum += orderItem.quantity
         } else if (orderItem.category === '收納') {
@@ -79,11 +75,25 @@ function getOrderList() {
         }
       })
       chartArray = [['床架', bedstockNum], ['收納', storageNum], ['窗簾', curtainNum]]
-      console.log('chartArray', chartArray)
 
     });
 
     js_table.innerHTML = str
+
+    // C3.js
+    let chart = c3.generate({
+      bindto: '#chart', // HTML 元素綁定
+      data: {
+        type: "pie",
+        columns: chartArray,
+        colors: {
+          "Louvre 雙人床架": "#DACBFF",
+          "Antony 雙人床架": "#9D7FEA",
+          "Anty 雙人床架": "#5434A7",
+          "其他": "#301E5F",
+        }
+      },
+    });
 
   }).catch(function (error) {
     console.log(error)
@@ -166,24 +176,6 @@ discardAllBtn.addEventListener('click', function (e) {
 })
 
 
-// C3.js
-let chart = c3.generate({
-  bindto: '#chart', // HTML 元素綁定
-  data: {
-    type: "pie",
-    columns: [
-      ['Louvre 雙人床架', 1],
-      ['Antony 雙人床架', 2],
-      ['Anty 雙人床架', 3],
-      ['其他', 4],
-    ],
-    colors: {
-      "Louvre 雙人床架": "#DACBFF",
-      "Antony 雙人床架": "#9D7FEA",
-      "Anty 雙人床架": "#5434A7",
-      "其他": "#301E5F",
-    }
-  },
-});
+
 
 
