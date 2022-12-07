@@ -155,7 +155,7 @@ productWrap.addEventListener('click', function (e) {
     // console.log(id, item)
     if (id === item.product.id) {
       console.log(true)
-      num += 1
+      num += item.quantity
     }
   })
   //加入購物車按鈕監聽
