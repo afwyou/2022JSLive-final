@@ -1,26 +1,11 @@
-// C3.js
-let chart = c3.generate({
-  bindto: '#chart', // HTML 元素綁定
-  data: {
-    type: "pie",
-    columns: [
-      ['Louvre 雙人床架', 1],
-      ['Antony 雙人床架', 2],
-      ['Anty 雙人床架', 3],
-      ['其他', 4],
-    ],
-    colors: {
-      "Louvre 雙人床架": "#DACBFF",
-      "Antony 雙人床架": "#9D7FEA",
-      "Anty 雙人床架": "#5434A7",
-      "其他": "#301E5F",
-    }
-  },
-});
+
+
+
 
 const api_path = 'erwin'
 const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
 let orderList = []
+let chartArray = []
 const js_table = document.querySelector('.js-table')
 const orderPageList = document.querySelector('.orderPage-list')
 const discardAllBtn = document.querySelector('.discardAllBtn')
@@ -32,7 +17,7 @@ function getOrderList() {
       'Authorization': token,
     }
   }).then(function (res) {
-    console.log(res.data.orders)
+    console.log('orderList', res.data.orders)
     orderList = res.data.orders
 
     //組字串
@@ -54,7 +39,6 @@ function getOrderList() {
       //組時間字串
       const timeStamp = new Date(item.createdAt * 1000)
       const orderTime = `${timeStamp.getFullYear()}/${timeStamp.getMonth() + 1}/${timeStamp.getDate()}`
-      console.log(orderTime)
 
 
       //組合字串（表格部分）
@@ -77,6 +61,26 @@ function getOrderList() {
             <input type="button" class="delSingleOrder-Btn" data-id = "${item.id}" value="刪除">
           </td>
         </tr>`
+
+      //組合圖表陣列
+      // 床架、收納、窗簾
+      let bedstockNum = 0
+      let storageNum = 0
+      let curtainNum = 0
+
+      item.products.forEach(function (orderItem) {
+        let array = []
+        if (orderItem.category === '床架') {
+          bedstockNum += orderItem.quantity
+        } else if (orderItem.category === '收納') {
+          storageNum += orderItem.quantity
+        } else {
+          curtainNum += orderItem.quantity
+        }
+      })
+      chartArray = [['床架', bedstockNum], ['收納', storageNum], ['窗簾', curtainNum]]
+      console.log('chartArray', chartArray)
+
     });
 
     js_table.innerHTML = str
@@ -161,5 +165,25 @@ discardAllBtn.addEventListener('click', function (e) {
   })
 })
 
+
+// C3.js
+let chart = c3.generate({
+  bindto: '#chart', // HTML 元素綁定
+  data: {
+    type: "pie",
+    columns: [
+      ['Louvre 雙人床架', 1],
+      ['Antony 雙人床架', 2],
+      ['Anty 雙人床架', 3],
+      ['其他', 4],
+    ],
+    colors: {
+      "Louvre 雙人床架": "#DACBFF",
+      "Antony 雙人床架": "#9D7FEA",
+      "Anty 雙人床架": "#5434A7",
+      "其他": "#301E5F",
+    }
+  },
+});
 
 
