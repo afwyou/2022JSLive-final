@@ -10,3 +10,17 @@ let chart = c3.generate({
 
 const api_path = 'erwin';
 const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
+
+
+//取得產品清單
+
+
+//產品篩選
+
+//加入購物車（數量判斷）
+
+//取得購物車清單（購物車金額）
+
+//購物車刪除
+
+//送出訂單

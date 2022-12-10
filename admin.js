@@ -22,3 +22,11 @@ let chart = c3.generate({
 
 const api_path = 'erwin'
 const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
+
+//取得訂單資料（組字串：基本結構、日期、多項目）
+
+//刪除訂單
+
+//訂單處理
+
+//圖表顯示
