@@ -24,7 +24,7 @@ const api_route = {
     }
   },
 
-  deleteCarts: `https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts/${id}`,
+  // deleteCarts: `https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts/${id}`,
 
   sendOrder: {
     api: `https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/orders`,
@@ -44,12 +44,36 @@ const api_route = {
   }
 
 }
-
+let productLists = []
+const productWrap = document.querySelector('.productWrap')
 
 //取得產品清單
 function renderProductList() {
-  axios.get(``)
+  axios.get(api_route.getProduct)
+    .then(function (res) {
+      productLists = res.data.products
+      console.log('產品清單:', productLists)
+      renderProduct(productLists)
+    })
 }
+function renderProduct(arr) {
+  let str = ''
+  arr.forEach(item => {
+    str += `
+     <li class="productCard">
+        <h4 class="productType">新品</h4>
+        <img
+          src="${item.images}"
+          alt="">
+        <a href="#" class="addCardBtn" data-id="${item.id}">加入購物車</a>
+        <h3>${item.title}</h3>
+        <del class="originPrice">NT$${item.origin_price}</del>
+        <p class="nowPrice">NT$${item.price}</p>
+      </li>`
+  });
+  productWrap.innerHTML = str
+}
+renderProductList()
 
 //產品篩選
 
