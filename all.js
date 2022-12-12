@@ -48,7 +48,7 @@ let productLists = []
 let cartLists = []
 const productWrap = document.querySelector('.productWrap')
 const productSelect = document.querySelector('.productSelect')
-
+const shoppingCart = document.querySelector('.js-shoppingCart')
 
 //取得產品清單
 function renderProductList() {
@@ -107,13 +107,51 @@ productWrap.addEventListener('click', function (e) {
     }
   })
   if (target.getAttribute('class') === 'addCardBtn') {
-    console.log('12344')
+    axios.post(api_route.getCarts,
+      {
+        "data": {
+          "productId": "${id}",
+          "quantity": num
+        }
+      })
+      .then(function (res) {
+        console.log('購物車加入成功')
+        getCardList()
+      })
   }
 
 })
 
 //取得購物車清單（購物車金額）
-
+function getCardList() {
+  axios.get(api_route.getCarts)
+    .then(function (res) {
+      cartLists = res.data.carts
+      console.log('購物車清單', cartLists)
+      let str = ''
+      cartLists.forEach(item => {
+        str += `
+        <tr>
+          <td>
+            <div class="cardItem-title">
+              <img src="${item.images}" alt="">
+              <p>${item.title}</p>
+            </div>
+          </td>
+          <td>NT$12,000</td>
+          <td>1</td>
+          <td>NT$12,000</td>
+          <td class="discardBtn">
+            <a href="#" class="material-icons">
+              clear
+            </a>
+          </td>
+        </tr>
+        `
+      })
+    })
+}
+getCardList()
 //購物車刪除
 
 //送出訂單
