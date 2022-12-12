@@ -45,6 +45,7 @@ const api_route = {
 
 }
 let productLists = []
+let cartLists = []
 const productWrap = document.querySelector('.productWrap')
 const productSelect = document.querySelector('.productSelect')
 
@@ -98,6 +99,13 @@ productSelect.addEventListener('change', function (e) {
 productWrap.addEventListener('click', function (e) {
   e.preventDefault()
   const target = e.target
+  const id = target.getAttribute('data-id')
+  let num = 1
+  cartLists.forEach(function (item) {
+    if (item.id === id) {
+      num += item.quantity
+    }
+  })
   if (target.getAttribute('class') === 'addCardBtn') {
     console.log('12344')
   }
