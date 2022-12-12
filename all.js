@@ -154,5 +154,18 @@ function getCardList() {
 }
 getCardList()
 //購物車刪除
+shoppingCart.addEventListener('click', function (e) {
+  e.preventDefault()
+  const target = e.target
+  const id = target.getAttribute('data-id')
+  if (target.getAttribute('class') === 'material-icons') {
+    axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts/${id}`).then(res => {
+      alert('刪除ＯＫ')
+      getCardList()
+    })
+  }
+
+})
+
 
 //送出訂單
