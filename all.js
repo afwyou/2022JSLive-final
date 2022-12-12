@@ -90,7 +90,7 @@ productSelect.addEventListener('change', function (e) {
       return item.category === target.value
     })
   }
-  renderProductList(filterProductLists)
+  renderProduct(filterProductLists)
 })
 
 //加入購物車（數量判斷）
