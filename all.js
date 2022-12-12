@@ -110,7 +110,7 @@ productWrap.addEventListener('click', function (e) {
     axios.post(api_route.getCarts,
       {
         "data": {
-          "productId": "${id}",
+          "productId": `${id}`,
           "quantity": num
         }
       })
