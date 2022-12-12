@@ -91,9 +91,18 @@ productSelect.addEventListener('change', function (e) {
     })
   }
   renderProduct(filterProductLists)
+
 })
 
 //加入購物車（數量判斷）
+productWrap.addEventListener('click', function (e) {
+  e.preventDefault()
+  const target = e.target
+  if (target.getAttribute('class') === 'addCardBtn') {
+    console.log('12344')
+  }
+
+})
 
 //取得購物車清單（購物車金額）
 
