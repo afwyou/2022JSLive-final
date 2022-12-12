@@ -46,6 +46,8 @@ const api_route = {
 }
 let productLists = []
 const productWrap = document.querySelector('.productWrap')
+const productSelect = document.querySelector('.productSelect')
+
 
 //取得產品清單
 function renderProductList() {
@@ -76,6 +78,20 @@ function renderProduct(arr) {
 renderProductList()
 
 //產品篩選
+productSelect.addEventListener('change', function (e) {
+  const target = e.target
+  let filterProductLists = []
+  if (target.value === '全部') {
+    filterProductLists = productLists.filter(function (item) {
+      return item
+    })
+  } else {
+    filterProductLists = productLists.filter(function (item) {
+      return item.category === target.value
+    })
+  }
+  renderProductList(filterProductLists)
+})
 
 //加入購物車（數量判斷）
 
