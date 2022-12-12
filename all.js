@@ -110,12 +110,13 @@ productWrap.addEventListener('click', function (e) {
     axios.post(api_route.getCarts,
       {
         "data": {
-          "productId": `${id}`,
+          "productId": id,
           "quantity": num
         }
       })
       .then(function (res) {
         console.log('購物車加入成功')
+        alert('購物車加入成功')
         getCardList()
       })
   }
@@ -134,21 +135,22 @@ function getCardList() {
         <tr>
           <td>
             <div class="cardItem-title">
-              <img src="${item.images}" alt="">
-              <p>${item.title}</p>
+              <img src="${item.product.images}" alt="">
+              <p>${item.product.title}</p>
             </div>
           </td>
-          <td>NT$12,000</td>
-          <td>1</td>
-          <td>NT$12,000</td>
+          <td>NT$${item.product.origin_price}</td>
+          <td>${item.quantity}</td>
+          <td>NT$${item.product.prize}</td>
           <td class="discardBtn">
-            <a href="#" class="material-icons">
+            <a href="#" class="material-icons" data-id="${item.id}">
               clear
             </a>
           </td>
         </tr>
         `
       })
+      shoppingCart.innerHTML = str
     })
 }
 getCardList()
