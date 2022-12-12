@@ -102,7 +102,7 @@ productWrap.addEventListener('click', function (e) {
   const id = target.getAttribute('data-id')
   let num = 1
   cartLists.forEach(function (item) {
-    if (item.id === id) {
+    if (item.product.id === id) {
       num += item.quantity
     }
   })
@@ -115,7 +115,6 @@ productWrap.addEventListener('click', function (e) {
         }
       })
       .then(function (res) {
-        console.log('購物車加入成功')
         alert('購物車加入成功')
         getCardList()
       })
