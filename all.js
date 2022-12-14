@@ -49,6 +49,11 @@ let cartLists = []
 const productWrap = document.querySelector('.productWrap')
 const productSelect = document.querySelector('.productSelect')
 const shoppingCart = document.querySelector('.js-shoppingCart')
+const customerName = document.querySelector('#customerName').value
+const customerPhone = document.querySelector('#customerPhone').value
+const customerEmail = document.querySelector('#customerEmail').value
+const customerAddress = document.querySelector('#customerAddress').value
+const tradeWay = document.querySelector('#tradeWay').value
 
 //取得產品清單
 function renderProductList() {
