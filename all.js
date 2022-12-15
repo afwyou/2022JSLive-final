@@ -10,6 +10,18 @@ let chart = c3.generate({
 const api_path = 'erwin';
 const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
 
+
+let productLists = []
+let cartLists = []
+const productWrap = document.querySelector('.productWrap')
+const productSelect = document.querySelector('.productSelect')
+const shoppingCart = document.querySelector('.js-shoppingCart')
+const customerName = document.querySelector('#customerName').value
+const customerPhone = document.querySelector('#customerPhone').value
+const customerEmail = document.querySelector('#customerEmail').value
+const customerAddress = document.querySelector('#customerAddress').value
+const tradeWay = document.querySelector('#tradeWay').value
+const orderForm = document.querySelector('.orderInfo-form')
 const api_route = {
   getProduct: `https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/products`,
 
@@ -44,16 +56,8 @@ const api_route = {
   }
 
 }
-let productLists = []
-let cartLists = []
-const productWrap = document.querySelector('.productWrap')
-const productSelect = document.querySelector('.productSelect')
-const shoppingCart = document.querySelector('.js-shoppingCart')
-const customerName = document.querySelector('#customerName').value
-const customerPhone = document.querySelector('#customerPhone').value
-const customerEmail = document.querySelector('#customerEmail').value
-const customerAddress = document.querySelector('#customerAddress').value
-const tradeWay = document.querySelector('#tradeWay').value
+console.log(customerEmail)
+
 
 //取得產品清單
 function renderProductList() {
@@ -174,3 +178,7 @@ shoppingCart.addEventListener('click', function (e) {
 
 
 //送出訂單
+orderForm.addEventListener('click', function (e) {
+  e.preventDefault()
+
+})
