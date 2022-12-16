@@ -57,6 +57,7 @@ const api_route = {
 }
 
 
+
 //取得產品清單
 function renderProductList() {
   axios.get(api_route.getProduct)
@@ -181,12 +182,22 @@ orderForm.addEventListener('click', function (e) {
   const target = e.target
   if (target.getAttribute('class') === 'orderInfo-btn') {
     console.log(target.getAttribute('class'))
-    console.log(api_route.sendOrder.api, api_route.sendOrder.reference)
+    console.log(tradeWay.value, customerAddress.value, customerEmail.value, customerPhone.value, customerName.value)
     if (tradeWay === '' || customerAddress === '' || customerEmail === '' || customerPhone === '' || customerName === '') {
       alert('請填入正確表單資訊')
       return
     }
-    axios.post(api_route.sendOrder.api, api_route.sendOrder.reference)
+    axios.post(api_route.sendOrder.api, {
+      "data": {
+        "user": {
+          "name": customerName.value,
+          "tel": customerPhone.value,
+          "email": customerEmail.value,
+          "address": customerAddress.value,
+          "payment": tradeWay.value
+        }
+      }
+    })
       .then(function (res) {
         console.log('訂單傳送成功')
 
