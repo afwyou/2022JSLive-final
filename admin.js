@@ -62,12 +62,18 @@ function renderOrderList(arr) {
       let status
       console.log(orderList)
       let str = ''
+      //產品名稱字串
+      let productStr = ''
+      //主要字串
       orderList.forEach(item => {
         if (item.paid === false) {
           status = '已處理'
         } else {
           status = '未處理'
         }
+        item.products.forEach(productItem => {
+          productStr += `${productItem.title}<br>`
+        });
         str += `
           <tr>
             <td>${item.createdAt}</td>
@@ -78,7 +84,7 @@ function renderOrderList(arr) {
             <td>${item.user.address}</td>
             <td>${item.user.email}</td>
             <td>
-              <p>Louvre 雙人床架</p>
+              <p>${productStr}</p>
             </td>
             <td>2021/03/08</td>
             <td class="orderStatus">
