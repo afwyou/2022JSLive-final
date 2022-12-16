@@ -20,6 +20,8 @@ let chart = c3.generate({
 
 const api_path = 'erwin'
 const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
+
+
 const apiRoute = {
   //取得訂單
   getOrders: `https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders`,
@@ -28,13 +30,13 @@ const apiRoute = {
   changeOrder:
   {
     "data": {
-      "id": id,
-      "paid": newStatus,
+      // "id": id,
+      // "paid": newStatus,
     },
   },
 
   //刪除訂單
-  deleteOrder: `https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders/${id}`,
+  // deleteOrder: `https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders/${id}`,
 
   //刪除全部訂單
   deleteAllOrder: `https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders/`
@@ -51,7 +53,14 @@ const apiRoute = {
 }
 
 //取得訂單資料（組字串：基本結構、日期、多項目）
-
+function renderOrderList(arr) {
+  let str = ''
+  axios.get(apiRoute.getOrders, apiRoute.tokenObj)
+    .then(res => {
+      console.log(res.data.orders)
+    })
+}
+renderOrderList()
 //刪除訂單
 
 //訂單處理
