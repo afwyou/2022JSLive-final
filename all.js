@@ -136,8 +136,10 @@ function getCardList() {
     .then(function (res) {
       cartLists = res.data.carts
       console.log('購物車清單', cartLists)
+      let totalNum = 0
       let str = ''
       cartLists.forEach(item => {
+        totalNum += item.product.price * item.quantity
         str += `
         <tr>
           <td>
@@ -154,9 +156,20 @@ function getCardList() {
               clear
             </a>
           </td>
-        </tr>
         `
       })
+      str += `
+      <tr>
+         <td>
+             <a href="#" class="discardAllBtn">刪除所有品項</a>
+               </td>
+                <td></td>
+                 <td></td>
+                 <td>
+                  <p>總金額</p>
+                 </td>
+                  <td>NT$${totalNum}</td>
+             </tr>`
       shoppingCart.innerHTML = str
     })
 }
@@ -173,6 +186,14 @@ shoppingCart.addEventListener('click', function (e) {
     })
   }
 
+  if (target.getAttribute('class') === 'discardAllBtn') {
+    alert('您確認要清空購物車?????')
+    axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts/`).then(res => {
+      alert('購物車已經清空囉')
+      getCardList()
+    })
+  }
+
 })
 
 
@@ -181,8 +202,6 @@ orderForm.addEventListener('click', function (e) {
   e.preventDefault()
   const target = e.target
   if (target.getAttribute('class') === 'orderInfo-btn') {
-    console.log(target.getAttribute('class'))
-    console.log(tradeWay.value, customerAddress.value, customerEmail.value, customerPhone.value, customerName.value)
     if (tradeWay === '' || customerAddress === '' || customerEmail === '' || customerPhone === '' || customerName === '') {
       alert('請填入正確表單資訊')
       return
