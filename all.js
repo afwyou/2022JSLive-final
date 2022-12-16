@@ -44,17 +44,16 @@ const api_route = {
     {
       "data": {
         "user": {
-          "name": customerName.value,
-          "tel": customerPhone.value,
-          "email": customerEmail.value,
-          "address": customerAddress.value,
-          "payment": tradeWay.value
+          "name": customerName,
+          "tel": customerPhone,
+          "email": customerEmail,
+          "address": customerAddress,
+          "payment": tradeWay
         }
       }
     }
 
   }
-
 }
 console.log(customerEmail)
 
@@ -180,5 +179,21 @@ shoppingCart.addEventListener('click', function (e) {
 //送出訂單
 orderForm.addEventListener('click', function (e) {
   e.preventDefault()
+  const target = e.target
+  if (target.getAttribute('class') === 'orderInfo-btn') {
+    if (tradeWay === '' || customerAddress === '' || customerEmail === '' || customerPhone === '' || customerName === '') {
+      alert('請填入正確表單資訊')
+      return
+    }
+    axios.post(sendOrder.api, sendOrder.reference)
+      .then(function (res) {
+        console.log('訂單傳送成功')
+
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+
 
 })
