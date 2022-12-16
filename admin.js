@@ -21,7 +21,8 @@ let chart = c3.generate({
 const api_path = 'erwin'
 const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
 
-
+let orderList = []
+const jsTable = document.querySelector('.jsTable')
 const apiRoute = {
   //取得訂單
   getOrders: `https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders`,
@@ -57,7 +58,39 @@ function renderOrderList(arr) {
   let str = ''
   axios.get(apiRoute.getOrders, apiRoute.tokenObj)
     .then(res => {
-      console.log(res.data.orders)
+      orderList = res.data.orders
+      let status
+      console.log(orderList)
+      let str = ''
+      orderList.forEach(item => {
+        if (item.paid === false) {
+          status = '已處理'
+        } else {
+          status = '未處理'
+        }
+        str += `
+          <tr>
+            <td>${item.createdAt}</td>
+            <td>
+              <p>${item.user.name}</p>
+              <p>${item.user.tel}</p>
+            </td>
+            <td>${item.user.address}</td>
+            <td>${item.user.email}</td>
+            <td>
+              <p>Louvre 雙人床架</p>
+            </td>
+            <td>2021/03/08</td>
+            <td class="orderStatus">
+              <a href="#">${status}</a>
+            </td>
+            <td>
+              <input type="button" class="delSingleOrder-Btn" value="刪除">
+            </td>
+          </tr>
+        `
+      });
+      jsTable.innerHTML = str
     })
 }
 renderOrderList()
