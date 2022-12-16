@@ -76,6 +76,7 @@ function renderOrderList(arr) {
 
           productStr += `${productItem.title}<br>`
         });
+        //時間戳記
 
         //主要字串
         str += `
