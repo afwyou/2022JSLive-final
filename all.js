@@ -16,11 +16,11 @@ let cartLists = []
 const productWrap = document.querySelector('.productWrap')
 const productSelect = document.querySelector('.productSelect')
 const shoppingCart = document.querySelector('.js-shoppingCart')
-const customerName = document.querySelector('#customerName').value
-const customerPhone = document.querySelector('#customerPhone').value
-const customerEmail = document.querySelector('#customerEmail').value
-const customerAddress = document.querySelector('#customerAddress').value
-const tradeWay = document.querySelector('#tradeWay').value
+const customerName = document.querySelector('#customerName')
+const customerPhone = document.querySelector('#customerPhone')
+const customerEmail = document.querySelector('#customerEmail')
+const customerAddress = document.querySelector('#customerAddress')
+const tradeWay = document.querySelector('#tradeWay')
 const orderForm = document.querySelector('.orderInfo-form')
 const api_route = {
   getProduct: `https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/products`,
@@ -44,18 +44,17 @@ const api_route = {
     {
       "data": {
         "user": {
-          "name": customerName,
-          "tel": customerPhone,
-          "email": customerEmail,
-          "address": customerAddress,
-          "payment": tradeWay
+          "name": customerName.value,
+          "tel": customerPhone.value,
+          "email": customerEmail.value,
+          "address": customerAddress.value,
+          "payment": tradeWay.value
         }
       }
     }
 
   }
 }
-console.log(customerEmail)
 
 
 //取得產品清單
@@ -181,11 +180,13 @@ orderForm.addEventListener('click', function (e) {
   e.preventDefault()
   const target = e.target
   if (target.getAttribute('class') === 'orderInfo-btn') {
+    console.log(target.getAttribute('class'))
+    console.log(api_route.sendOrder.api, api_route.sendOrder.reference)
     if (tradeWay === '' || customerAddress === '' || customerEmail === '' || customerPhone === '' || customerName === '') {
       alert('請填入正確表單資訊')
       return
     }
-    axios.post(sendOrder.api, sendOrder.reference)
+    axios.post(api_route.sendOrder.api, api_route.sendOrder.reference)
       .then(function (res) {
         console.log('訂單傳送成功')
 
