@@ -77,7 +77,9 @@ function renderOrderList(arr) {
           productStr += `${productItem.title}<br>`
         });
         //時間戳記
-
+        const timeStamp = new Date(item.createdAt * 1000)
+        console.log(timeStamp)
+        const orderTime = `${timeStamp.getFullYear()}/${timeStamp.getMonth() + 1}/${timeStamp.getDate()}`
         //主要字串
         str += `
           <tr>
@@ -91,7 +93,7 @@ function renderOrderList(arr) {
             <td>
               <p>${productStr}</p>
             </td>
-            <td>2021/03/08</td>
+            <td>${orderTime}</td>
             <td class="orderStatus">
               <a href="#">${status}</a>
             </td>
