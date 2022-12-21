@@ -26,7 +26,6 @@ const jsTable = document.querySelector('.jsTable')
 const apiRoute = {
   //取得訂單
   getOrders: `https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders`,
-
   //修改訂單參數
   changeOrder:
   {
@@ -35,22 +34,16 @@ const apiRoute = {
       // "paid": newStatus,
     },
   },
-
   //刪除訂單
   // deleteOrder: `https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders/${id}`,
-
   //刪除全部訂單
   deleteAllOrder: `https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders/`
   ,
-
   tokenObj: {
     headers: {
       'Authorization': token,
     }
   }
-
-
-
 }
 
 //取得訂單資料（組字串：基本結構、日期、多項目）
@@ -108,7 +101,28 @@ function renderOrderList(arr) {
 }
 renderOrderList()
 //刪除訂單
-
+function deleteOrder(id) {
+  axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders/${id}`, apiRoute.tokenObj)
+    .then(res => {
+      console.log('資料刪除成功')
+      renderOrderList()
+    })
+}
 //訂單處理
+function changeStatus(id, newStatus) {
+  axios.put(`https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders/${id}`, {
+    "data": {
+      "id": id,
+      "paid": newStatus,
+    },
+  }, apiRoute.tokenObj)
+    .then(res => {
+      console.log('訂單狀態修改成功')
+    })
+}
+jsTable.addEventListener('click', e => {
+  e.preventDefault()
+
+})
 
 //圖表顯示
