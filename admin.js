@@ -71,7 +71,6 @@ function renderOrderList(arr) {
         });
         //時間戳記
         const timeStamp = new Date(item.createdAt * 1000)
-        console.log(timeStamp)
         const orderTime = `${timeStamp.getFullYear()}/${timeStamp.getMonth() + 1}/${timeStamp.getDate()}`
         //主要字串
         str += `
@@ -88,10 +87,10 @@ function renderOrderList(arr) {
             </td>
             <td>${orderTime}</td>
             <td class="orderStatus">
-              <a href="#">${status}</a>
+              <a href="#" class="orderStatus" data-status="${item.paid}" data-id="${item.id}">${status}</a>
             </td>
             <td>
-              <input type="button" class="delSingleOrder-Btn" value="刪除">
+              <input type="button" class="delSingleOrder-Btn" data-id="${item.id} " value="刪除">
             </td>
           </tr>
         `
@@ -122,7 +121,18 @@ function changeStatus(id, newStatus) {
 }
 jsTable.addEventListener('click', e => {
   e.preventDefault()
+  const target = e.target
+  const id = target.getAttribute('data-id')
+  const status = target.getAttribute('data-status')
+  let newStatus
+  if (status === 'false') {
+    newStatus = true
+  } else {
+    newStatus = false
+  }
 
+  if (target.getAttribute('class') = 'orderStatus')
+    changeStatus(id, newStatus)
 })
 
 //圖表顯示
