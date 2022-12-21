@@ -109,7 +109,7 @@ function deleteOrder(id) {
 }
 //訂單處理
 function changeStatus(id, newStatus) {
-  axios.put(`https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders/${id}`, {
+  axios.put(`https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders`, {
     "data": {
       "id": id,
       "paid": newStatus,
