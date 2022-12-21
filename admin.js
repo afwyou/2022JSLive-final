@@ -133,9 +133,14 @@ jsTable.addEventListener('click', e => {
     newStatus = false
   }
 
-  if (target.getAttribute('class') === 'orderStatus')
+  if (target.getAttribute('class') === 'orderStatus') {
     changeStatus(id, newStatus)
-  renderOrderList()
+    renderOrderList()
+  } else if (target.getAttribute('class') === 'delSingleOrder-Btn') {
+    alert('資料除成功')
+    deleteOrder(id)
+  }
+
 })
 
 //圖表顯示
