@@ -23,6 +23,7 @@ const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
 
 let orderList = []
 const jsTable = document.querySelector('.jsTable')
+const discardAllBtn = document.querySelector('.discardAllBtn')
 const apiRoute = {
   //取得訂單
   getOrders: `https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders`,
@@ -143,4 +144,13 @@ jsTable.addEventListener('click', e => {
 
 })
 
+//訂單全部刪除
+discardAllBtn.addEventListener('click', e => {
+  e.preventDefault()
+  axios.delete(apiRoute.deleteAllOrder, apiRoute.tokenObj)
+    .then(res => {
+      alert('資料全部刪除成功')
+      renderOrderList()
+    })
+})
 //圖表顯示
