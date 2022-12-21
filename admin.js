@@ -47,7 +47,7 @@ const apiRoute = {
 }
 
 //取得訂單資料（組字串：基本結構、日期、多項目）
-function renderOrderList(arr) {
+function renderOrderList() {
   let str = ''
   axios.get(apiRoute.getOrders, apiRoute.tokenObj)
     .then(res => {
@@ -119,6 +119,8 @@ function changeStatus(id, newStatus) {
       console.log('訂單狀態修改成功')
     })
 }
+
+//訂單狀態監聽
 jsTable.addEventListener('click', e => {
   e.preventDefault()
   const target = e.target
@@ -133,6 +135,7 @@ jsTable.addEventListener('click', e => {
 
   if (target.getAttribute('class') === 'orderStatus')
     changeStatus(id, newStatus)
+  renderOrderList()
 })
 
 //圖表顯示
