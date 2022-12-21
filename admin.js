@@ -131,7 +131,7 @@ jsTable.addEventListener('click', e => {
     newStatus = false
   }
 
-  if (target.getAttribute('class') = 'orderStatus')
+  if (target.getAttribute('class') === 'orderStatus')
     changeStatus(id, newStatus)
 })
 
