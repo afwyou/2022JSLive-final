@@ -1,7 +1,6 @@
 
 const api_path = 'erwin';
 const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
-
 const api_route = {
   getProduct: `https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/products`,
 
@@ -49,3 +48,4 @@ const api_route = {
 
 //送出訂單
 
+//測試
