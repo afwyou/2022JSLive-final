@@ -86,7 +86,7 @@ productWrap.addEventListener('click', e => {
   e.preventDefault()
   let target = e.target
   if (target.getAttribute('class') === 'addCardBtn') {
-    axios.post(api_route.addCarts, {
+    axios.post(api_route.getCarts, {
       "data": {
         "productId": target.getAttribute('data-id'),
         "quantity": 1
