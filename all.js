@@ -3,6 +3,7 @@ const api_path = 'erwin';
 const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
 let productList = []
 const productWrap = document.querySelector('.productWrap')
+const productSelect = document.querySelector('.productSelect')
 const api_route = {
   getProduct: `https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/products`,
 
@@ -67,7 +68,19 @@ function renderProduct(arr) {
   productWrap.innerHTML = str
 }
 //產品篩選
+productSelect.addEventListener('change', e => {
+  let target = e.target
+  let selectArr = []
+  if (target.value === '全部') {
+    selectArr = productList
+  } else {
+    selectArr = productList.filter(function (item) {
+      return item.category === target.value
+    })
+  }
+  renderProduct(selectArr)
 
+})
 //加入購物車（數量判斷）
 
 //取得購物車清單（購物車金額）
@@ -76,4 +89,3 @@ function renderProduct(arr) {
 
 //送出訂單
 
-//測試
