@@ -1,6 +1,8 @@
 
 const api_path = 'erwin';
 const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
+let productList = []
+const productWrap = document.querySelector('.productWrap')
 const api_route = {
   getProduct: `https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/products`,
 
@@ -37,7 +39,33 @@ const api_route = {
 
 
 //取得產品清單
-
+function getProductList() {
+  axios.get(api_route.getProduct)
+    .then(res => {
+      productList = res.data.products
+      console.log(productList)
+      renderProduct(productList)
+    })
+}
+getProductList()
+function renderProduct(arr) {
+  let str = ''
+  arr.forEach(item => {
+    str += `
+    <li class="productCard">
+        <h4 class="productType">新品</h4>
+        <img
+          src="${item.images}"
+          alt="">
+        <a href="#" class="addCardBtn">加入購物車</a>
+        <h3>${item.title}</h3>
+        <del class="originPrice">NT$${item.origin_price}</del>
+        <p class="nowPrice">NT$${item.price}</p>
+      </li>
+    `
+  });
+  productWrap.innerHTML = str
+}
 //產品篩選
 
 //加入購物車（數量判斷）
