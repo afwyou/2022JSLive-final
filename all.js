@@ -58,7 +58,7 @@ function renderProduct(arr) {
         <img
           src="${item.images}"
           alt="">
-        <a href="#" class="addCardBtn">加入購物車</a>
+        <a href="#" class="addCardBtn" data-id="${item.id}">加入購物車</a>
         <h3>${item.title}</h3>
         <del class="originPrice">NT$${item.origin_price}</del>
         <p class="nowPrice">NT$${item.price}</p>
@@ -82,7 +82,22 @@ productSelect.addEventListener('change', e => {
 
 })
 //加入購物車（數量判斷）
-
+productWrap.addEventListener('click', e => {
+  e.preventDefault()
+  let target = e.target
+  if (target.getAttribute('class') === 'addCardBtn') {
+    axios.post(api_route.addCarts, {
+      "data": {
+        "productId": target.getAttribute('data-id'),
+        "quantity": 1
+      }
+    }).then(res => {
+      console.log('加入購物車成功')
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+})
 //取得購物車清單（購物車金額）
 
 //購物車刪除
