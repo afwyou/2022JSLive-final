@@ -58,20 +58,23 @@ function getOrderList() {
       orderList = res.data.orders
       console.log('orderList', orderList)
       let str = ''
+
       orderList.forEach(item => {
+        let orderDate = new Date(item.createdAt * 1000)
+        let dateStr = `${orderDate.getFullYear()}/${orderDate.getMonth() + 1}/${orderDate.getDate()}`
         str += `
         <tr>
-          <td>${item.createdAT}</td>
+          <td>${item.createdAt}</td>
           <td>
             <p>${item.user.name}</p>
-            <p>${item.user.rel}</p>
+            <p>${item.user.tel}</p>
           </td>
           <td>${item.user.address}</td>
           <td>${item.user.email}</td>
           <td>
             <p>${item.products.title}</p>
           </td>
-          <td>2021/03/08</td>
+          <td>${dateStr}</td>
           <td class="orderStatus">
             <a href="#">未處理</a>
           </td>
