@@ -129,7 +129,9 @@ function getCartList() {
 
 function renderCart(arr) {
   let str = ''
+  let total = 0
   arr.forEach(item => {
+    total += item.product.price * item.quantity
     str += `
    <tr>
           <td>
@@ -139,7 +141,7 @@ function renderCart(arr) {
             </div>
           </td>
           <td>NT$${item.product.origin_price}</td>
-          <td>1</td>
+          <td>${item.quantity}</td>
           <td>NT$${item.product.price}</td>
           <td class="discardBtn">
             <a href="#" class="material-icons" data-id="${item.id}">
@@ -147,8 +149,22 @@ function renderCart(arr) {
             </a>
           </td>
         </tr>
+
   `
   });
+  str += `
+   <tr>
+          <td>
+            <a href="#" class="discardAllBtn">刪除所有品項</a>
+          </td>
+          <td></td>
+          <td></td>
+          <td>
+            <p>總金額</p>
+          </td>
+          <td>NT$${total}</td>
+        </tr>
+  `
   jsTable.innerHTML = str
 }
 //購物車刪除
