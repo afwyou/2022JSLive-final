@@ -62,6 +62,14 @@ function getOrderList() {
       orderList.forEach(item => {
         let orderDate = new Date(item.createdAt * 1000)
         let dateStr = `${orderDate.getFullYear()}/${orderDate.getMonth() + 1}/${orderDate.getDate()}`
+        // 產品字串
+        let productStr = ''
+        item.products.forEach(productItem => {
+          productStr += `
+          ${productItem.title}<br>
+          `
+        });
+
         str += `
         <tr>
           <td>${item.createdAt}</td>
@@ -72,7 +80,7 @@ function getOrderList() {
           <td>${item.user.address}</td>
           <td>${item.user.email}</td>
           <td>
-            <p>${item.products.title}</p>
+            <p>${productStr}</p>
           </td>
           <td>${dateStr}</td>
           <td class="orderStatus">
