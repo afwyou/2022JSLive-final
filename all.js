@@ -168,6 +168,17 @@ function renderCart(arr) {
   jsTable.innerHTML = str
 }
 //購物車刪除
-
+jsTable.addEventListener('click', e => {
+  e.preventDefault()
+  let target = e.target
+  let id = target.getAttribute('data-id')
+  if (target.getAttribute('class') === 'material-icons') {
+    axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts/${id}`)
+      .then(res => {
+        alert('購物車刪除成功')
+        init()
+      })
+  }
+})
 //送出訂單
 
