@@ -5,6 +5,7 @@ let productList = []
 let cartList = []
 const productWrap = document.querySelector('.productWrap')
 const productSelect = document.querySelector('.productSelect')
+const jsTable = document.querySelector('.js-table')
 const api_route = {
   getProduct: `https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/products`,
 
@@ -44,6 +45,7 @@ function init() {
   getProductList()
   getCartList()
 }
+init()
 
 //取得產品清單
 function getProductList() {
@@ -121,9 +123,34 @@ function getCartList() {
     .then(res => {
       cartList = res.data.carts
       console.log('購物車：', cartList)
+      renderCart(cartList)
     })
 }
-getCartList()
+
+function renderCart(arr) {
+  let str = ''
+  arr.forEach(item => {
+    str += `
+   <tr>
+          <td>
+            <div class="cardItem-title">
+              <img src="${item.product.images}" alt="">
+              <p>${item.product.title}</p>
+            </div>
+          </td>
+          <td>NT$${item.product.origin_price}</td>
+          <td>1</td>
+          <td>NT$${item.product.price}</td>
+          <td class="discardBtn">
+            <a href="#" class="material-icons" data-id="${item.id}">
+              clear
+            </a>
+          </td>
+        </tr>
+  `
+  });
+  jsTable.innerHTML = str
+}
 //購物車刪除
 
 //送出訂單
