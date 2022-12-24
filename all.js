@@ -178,6 +178,12 @@ jsTable.addEventListener('click', e => {
         alert('購物車刪除成功')
         init()
       })
+  } else if (target.getAttribute('class') === 'discardAllBtn') {
+    axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/carts/`)
+      .then(res => {
+        alert('購物車全部刪除')
+        init()
+      })
   }
 })
 //送出訂單
