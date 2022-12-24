@@ -20,6 +20,9 @@ let chart = c3.generate({
 
 const api_path = 'erwin'
 const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
+let orderList = []
+const jsTable = document.querySelector('.jsTable')
+
 const apiRoute = {
   //取得訂單
   getOrders: `https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders`,
@@ -43,8 +46,44 @@ const apiRoute = {
   }
 }
 
-//取得訂單資料（組字串：基本結構、日期、多項目）
 
+function init() {
+  getOrderList()
+}
+init()
+//取得訂單資料（組字串：基本結構、日期、多項目）
+function getOrderList() {
+  axios.get(apiRoute.getOrders, apiRoute.tokenObj)
+    .then(res => {
+      orderList = res.data.orders
+      console.log('orderList', orderList)
+      let str = ''
+      orderList.forEach(item => {
+        str += `
+        <tr>
+          <td>${item.createdAT}</td>
+          <td>
+            <p>${item.user.name}</p>
+            <p>${item.user.rel}</p>
+          </td>
+          <td>${item.user.address}</td>
+          <td>${item.user.email}</td>
+          <td>
+            <p>${item.products.title}</p>
+          </td>
+          <td>2021/03/08</td>
+          <td class="orderStatus">
+            <a href="#">未處理</a>
+          </td>
+          <td>
+            <input type="button" class="delSingleOrder-Btn" value="刪除">
+          </td>
+        </tr>
+        `
+      });
+      jsTable.innerHTML = str
+    })
+}
 //刪除訂單
 
 //訂單處理
