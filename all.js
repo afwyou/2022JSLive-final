@@ -2,6 +2,7 @@
 const api_path = 'erwin';
 const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
 let productList = []
+let cartList = []
 const productWrap = document.querySelector('.productWrap')
 const productSelect = document.querySelector('.productSelect')
 const api_route = {
@@ -39,6 +40,11 @@ const api_route = {
 }
 
 
+function init() {
+  getProductList()
+  getCartList()
+}
+
 //取得產品清單
 function getProductList() {
   axios.get(api_route.getProduct)
@@ -48,7 +54,7 @@ function getProductList() {
       renderProduct(productList)
     })
 }
-getProductList()
+
 function renderProduct(arr) {
   let str = ''
   arr.forEach(item => {
@@ -85,21 +91,39 @@ productSelect.addEventListener('change', e => {
 productWrap.addEventListener('click', e => {
   e.preventDefault()
   let target = e.target
+  let id = target.getAttribute('data-id')
+  let num = 1
+  cartList.forEach(item => {
+    if (item.product.id === id) {
+      num += item.quantity
+    }
+  })
+  console.log('num', num)
+  //數量判斷 為了讓購物車可以即時更新正確的數量，所以必須加購時直接將參數帶上增加後的數字
   if (target.getAttribute('class') === 'addCardBtn') {
     axios.post(api_route.getCarts, {
       "data": {
-        "productId": target.getAttribute('data-id'),
-        "quantity": 1
+        "productId": id,
+        "quantity": num
       }
     }).then(res => {
       console.log('加入購物車成功')
+      init()
     }).catch(error => {
       console.log(error)
     })
   }
 })
-//取得購物車清單（購物車金額）
 
+//取得購物車清單（購物車金額）
+function getCartList() {
+  axios.get(api_route.getCarts)
+    .then(res => {
+      cartList = res.data.carts
+      console.log('購物車：', cartList)
+    })
+}
+getCartList()
 //購物車刪除
 
 //送出訂單
