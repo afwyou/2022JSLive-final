@@ -6,6 +6,12 @@ let cartList = []
 const productWrap = document.querySelector('.productWrap')
 const productSelect = document.querySelector('.productSelect')
 const jsTable = document.querySelector('.js-table')
+const customerName = document.querySelector('#customerName')
+const customerPhone = document.querySelector('#customerPhone')
+const customerEmail = document.querySelector('#customerEmail')
+const customerAddress = document.querySelector('#customerAddress')
+const tradeWay = document.querySelector('#tradeWay')
+const orderSend = document.querySelector('.orderInfo-btn')
 const api_route = {
   getProduct: `https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/products`,
 
@@ -187,4 +193,28 @@ jsTable.addEventListener('click', e => {
   }
 })
 //送出訂單
-
+orderSend.addEventListener('click', e => {
+  e.preventDefault()
+  if (customerName.value === '' || customerPhone.value === '' || customerEmail.value === '' || customerAddress.value === '') {
+    alert('請填入訂單資訊')
+    return
+  }
+  console.log(customerAddress.value)
+  axios.post(api_route.sendOrder.api,
+    {
+      "data": {
+        "user": {
+          "name": customerName.value,
+          "tel": customerPhone.value,
+          "email": customerEmail.value,
+          "address": customerAddress.value,
+          "payment": tradeWay.value
+        }
+      }
+    }).then(res => {
+      alert('訂購成功')
+      init()
+    }).catch(error => {
+      console.log(error)
+    })
+})
