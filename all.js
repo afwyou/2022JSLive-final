@@ -199,7 +199,6 @@ orderSend.addEventListener('click', e => {
     alert('請填入訂單資訊')
     return
   }
-  console.log(customerAddress.value)
   axios.post(api_route.sendOrder.api,
     {
       "data": {
