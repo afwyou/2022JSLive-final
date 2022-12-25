@@ -22,6 +22,7 @@ const api_path = 'erwin'
 const token = 'yCZCYeLTxAb6UAUNbvYpJ2AyYSy1';
 let orderList = []
 const jsTable = document.querySelector('.jsTable')
+const discardAllBtn = document.querySelector('.discardAllBtn')
 
 const apiRoute = {
   //取得訂單
@@ -155,5 +156,12 @@ function changeStatus(id, status) {
 }
 
 //訂單全部刪除
-
+discardAllBtn.addEventListener('click', e => {
+  e.preventDefault()
+  axios.delete(apiRoute.deleteAllOrder, apiRoute.tokenObj)
+    .then(res => {
+      alert('訂單全部刪除了')
+      init()
+    })
+})
 //圖表顯示
