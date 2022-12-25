@@ -60,8 +60,16 @@ function getOrderList() {
       let str = ''
 
       orderList.forEach(item => {
+        let status
         let orderDate = new Date(item.createdAt * 1000)
         let dateStr = `${orderDate.getFullYear()}/${orderDate.getMonth() + 1}/${orderDate.getDate()}`
+
+        if (item.paid === false) {
+          status = '未處理'
+        } else (
+          status = '已處理'
+        )
+
         // 產品字串
         let productStr = ''
         item.products.forEach(productItem => {
@@ -84,10 +92,10 @@ function getOrderList() {
           </td>
           <td>${dateStr}</td>
           <td class="orderStatus">
-            <a href="#">未處理</a>
+            <a href="#" class="orderStatus" data-id="${item.id}" data-status="${item.paid}">${status}</a>
           </td>
           <td>
-            <input type="button" class="delSingleOrder-Btn" value="刪除">
+            <input type="button" class="delSingleOrder-Btn" data-id="${item.id}"value="刪除">
           </td>
         </tr>
         `
@@ -95,11 +103,56 @@ function getOrderList() {
       jsTable.innerHTML = str
     })
 }
-//刪除訂單
 
-//訂單處理
 
+//分別撰寫刪除跟改變狀態的函數，接者使用監聽帶入id和狀態參數
 //訂單狀態監聽
+jsTable.addEventListener('click', e => {
+  e.preventDefault()
+  let target = e.target
+  let id = target.getAttribute('data-id')
+  let status = target.getAttribute('data-status')
+  let targetClass = target.getAttribute('class')
+  let newStatus
+
+
+  if (targetClass === 'orderStatus') {
+    if (status === 'false') {
+      newStatus = true
+    } else {
+      newStatus = false
+    }
+    changeStatus(id, newStatus)
+  } else if (targetClass === 'delSingleOrder-Btn') {
+    deleteOrder(id)
+  }
+
+})
+//刪除訂單
+function deleteOrder(id) {
+  axios.delete(`https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders/${id}`, apiRoute.tokenObj)
+    .then(res => {
+      alert('訂單刪除成功')
+      init()
+    }).catch(error => {
+      console.log(error)
+    })
+}
+//訂單處理
+function changeStatus(id, status) {
+  axios.put(`https://livejs-api.hexschool.io/api/livejs/v1/admin/${api_path}/orders`, {
+    "data": {
+      "id": id,
+      "paid": status,
+    },
+  }, apiRoute.tokenObj)
+    .then(res => {
+      alert('訂單狀態更改成功')
+      init()
+    }).catch(error => {
+      console.log(error)
+    })
+}
 
 //訂單全部刪除
 
